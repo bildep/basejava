@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
 
-    int size = size();
+    int size = 0;
 
     void clear() {
         for (int i = 0; i < this.size; i++) {
@@ -16,7 +16,6 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-
         storage[size] = r;
         size++;
     }
@@ -31,31 +30,27 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-
-        for (int i = 0; i < size; i++){
-
+        boolean flag = false;
+        for (int i = 0; i < size - 1; i++){
             if(uuid.equals(storage[i].toString())){
-                storage[i] = null;
+                flag = true;
             }
-
+            if(flag){
+                storage[i] = storage[i+1];
+            }
         }
+        storage[storage.length-1] = null;
+        size--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-
         return Arrays.copyOf(storage, size);
     }
 
     int size() {
-        int size = 0;
-        for (Resume r: storage) {
-            if (r != null) {
-                size++;
-            }
-        }
         return size;
     }
 }
