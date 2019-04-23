@@ -31,18 +31,22 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         boolean flag = false;
+        int k = 0;
         for (int i = 0; i < size - 1; i++){
             if(uuid.equals(storage[i].toString())){
                 flag = true;
-            }
-            if(flag){
-                storage[i] = storage[i+1];
+                k = i;
+                break;
             }
         }
-        storage[storage.length-1] = null;
-        size--;
+        if(flag) {
+            for (int i = k; i < size - 1; i++) {
+                storage[i] = storage[i+1];
+            }
+            size--;
+        }
     }
-
+    
     /**
      * @return array, contains only Resumes in storage (without null)
      */
